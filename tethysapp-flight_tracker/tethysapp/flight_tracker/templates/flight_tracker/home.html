@@ -1,0 +1,16 @@
+{% extends "flight_tracker/base.html" %}
+{% load tethys_gizmos %}
+{% load static %}
+
+{% block title %}Flight Tracker{% endblock %}
+
+{% block app_content %}
+  {{ block.super }}
+  {% gizmo cesium_map_view %}
+  <div id="loading-overlay">
+    <img id='loading-overlay-img' src="{% static 'flight_tracker/images/airplane_loading.gif' %}" id="loading-gif" />
+  </div>
+{% endblock %}
+
+
+

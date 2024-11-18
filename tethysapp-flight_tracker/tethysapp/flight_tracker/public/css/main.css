@@ -1,0 +1,36 @@
+#app-content {
+    height: 100%;
+}
+
+#inner-app-content {
+    padding: 0px;
+}
+
+.form-container {
+    margin-top: 10px;
+}
+.form-group {
+    margin-bottom:15px;
+}
+#aircraft-number {
+    margin-bottom: 15px;
+}
+
+#flight-number-button {
+    margin-top:15px;
+}
+
+#loading-overlay {
+    position: absolute;
+    top: 50%;
+    left: 42%;
+    transform: translate(-50%, -50%);
+    z-index: 100000;
+    display: none;
+}
+
+#loading-overlay-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
