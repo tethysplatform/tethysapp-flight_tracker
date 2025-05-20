@@ -26,18 +26,6 @@ class FlightTracker(TethysAppBase):
                 description='Cesium Ion Access Token',
                 required=True                
             ),
-            CustomSetting(
-                name='open_sky_username',
-                type=CustomSetting.TYPE_STRING,
-                description='OpenSky network username for API access',
-                required=True
-            ),
-            CustomSetting(
-                name='open_sky_password',
-                type=CustomSetting.TYPE_STRING,
-                description='OpenSky network password for API access',
-                required=True
-            ),
         )
 
         return custom_settings
