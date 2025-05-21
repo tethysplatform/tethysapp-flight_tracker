@@ -21,11 +21,11 @@ def get_timestamps(start_date, start_time, end_date, end_time):
 
     return begin_timestamp, end_timestamp
 
-@controller(name='home', url='home', app_workspace=True)
-def cesium_map_view_controller(request, app_workspace):
+@controller(name='home', url='home', app_resources=True)
+def cesium_map_view_controller(request, app_resources):
     cesium_ion_token = App.get_custom_setting('cesium_ion_token')
     # Load airports geojson to display airports on the map
-    geojson_file_path = Path(app_workspace.path) / 'flight_tracker' / 'data' / 'airports.geojson'
+    geojson_file_path = Path(app_resources.path) / 'airports.geojson'
     with open(geojson_file_path, 'r') as f:
         airports_geojson_data = json.load(f)
 
