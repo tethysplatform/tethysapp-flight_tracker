@@ -38,4 +38,5 @@ include = ["tethysapp*"]
     "*.gltf",
     "*.json",
     "*.svg",
+    "*.geojson",
 ]
