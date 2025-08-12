@@ -40,3 +40,5 @@ include = ["tethysapp*"]
     "*.svg",
     "*.geojson",
 ]
+[tool.setuptools_scm]
+fallback_version = "0.1.0"
