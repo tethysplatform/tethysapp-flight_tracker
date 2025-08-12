@@ -4,6 +4,12 @@
 
 {% block title %}Flight Tracker{% endblock %}
 
+{% block header_buttons %}
+  <div class="header-button">
+    <a data-bs-toggle="modal" data-bs-target="#infoModal"><i class="bi bi-info"></i></a>
+  </div>
+{% endblock %}
+
 {% block app_content %}
   {{ block.super }}
   {% gizmo cesium_map_view %}
@@ -12,5 +18,27 @@
   </div>
 {% endblock %}
 
-
-
+{% block after_app_content %}
+  <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="infoModalLabel">Wildfire Visualizer Information</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="info-modal-text-box">
+            <p>This application visualizes flight paths and data using the OpenSky Network API</p>
+            <p><a href="https://openskynetwork.github.io/opensky-api/">Learn more about the OpenSky Network API</a>.</p>
+          </div>
+          <div class="info-modal-text-box">
+            <p>Use the form to select an airport and start and end dates to view departures or arrivals at that airport for the selected dates. Or use an aircraft's ICAO24 number to track its flight paths over a course of time.</p>
+          </div>
+          <div class="info-modal-text-box">
+            <p>View the <a href="https://github.com/tethysplatform/tethysapp-flight_tracker">source code on GitHub</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
