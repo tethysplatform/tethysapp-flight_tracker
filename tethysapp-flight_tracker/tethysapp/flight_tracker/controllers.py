@@ -91,10 +91,33 @@ def cesium_map_view_controller(request, app_resources):
 
     return render(request, 'flight_tracker/home.html', context)
 
+def get_auth_token():
+    """Get the authentication token for OpenSky API."""
+    opensky_username = App.get_custom_setting('opensky_username')
+    opensky_password = App.get_custom_setting('opensky_password')
+
+    token_url = "https://auth.opensky-network.org/auth/realms/opensky-network/protocol/openid-connect/token"
+
+    data = {
+        "grant_type": "client_credentials",
+        "client_id": opensky_username,
+        "client_secret": opensky_password
+    }
+
+    token_headers = {
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+
+    response = requests.post(token_url, headers=token_headers, data=data)
+    if response.status_code == 200:
+        return response.json().get("access_token")
+    else:
+        return None
+
+
 @controller(name='get_flights_endpoint', url='get-flights')
 def get_flights(request):
     # Get data from the POST request sent in the form
-    
     request_data = request.POST
     start_date = request_data.get('start_date')
     start_time = request_data.get('start_time')
@@ -112,8 +135,12 @@ def get_flights(request):
         return JsonResponse({'error': 'The time difference cannot be more than 7 days.'}, status=400)
     
     # Query OpenSky API
-    api_response = requests.get(f'https://opensky-network.org/api/flights/{place}?airport={airport_name}&begin={start_timestamp}&end={end_timestamp}')
-    
+    token = get_auth_token()
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
+    api_response = requests.get(f'https://opensky-network.org/api/flights/{place}?airport={airport_name}&begin={start_timestamp}&end={end_timestamp}', headers=headers)
+
     if api_response.status_code == 404:
         return JsonResponse({'error': 'No flights found.'}, status=404)
     elif api_response.status_code != 200:       
@@ -149,8 +176,12 @@ def get_aircraft(request):
         return JsonResponse({'error': 'The time difference cannot be more than 30 days.'}, status=400)
 
     # Query OpenSky API
-    api_response = requests.get(f'https://opensky-network.org/api/flights/aircraft?icao24={aircraft_number}&begin={start_timestamp}&end={end_timestamp}')
-    
+    token = get_auth_token()
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
+    api_response = requests.get(f'https://opensky-network.org/api/flights/aircraft?icao24={aircraft_number}&begin={start_timestamp}&end={end_timestamp}', headers=headers)
+
     # Form the JSON response with the desired data from the API response
     json_response = {"flights": []}
     for flight in api_response.json():
