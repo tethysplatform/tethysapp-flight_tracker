@@ -93,15 +93,15 @@ def cesium_map_view_controller(request, app_resources):
 
 def get_auth_token():
     """Get the authentication token for OpenSky API."""
-    opensky_username = App.get_custom_setting('opensky_username')
-    opensky_password = App.get_custom_setting('opensky_password')
+    opensky_client_id = App.get_custom_setting('opensky_api_client_id')
+    opensky_client_secret = App.get_custom_setting('opensky_api_client_secret')
 
     token_url = "https://auth.opensky-network.org/auth/realms/opensky-network/protocol/openid-connect/token"
 
     data = {
         "grant_type": "client_credentials",
-        "client_id": opensky_username,
-        "client_secret": opensky_password
+        "client_id": opensky_client_id,
+        "client_secret": opensky_client_secret
     }
 
     token_headers = {

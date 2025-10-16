@@ -27,15 +27,15 @@ class FlightTracker(TethysAppBase):
                 required=True                
             ),
             CustomSetting(
-                name='opensky_username',
+                name='opensky_api_client_id',
                 type=CustomSetting.TYPE_STRING,
-                description='OpenSky Network Username',
+                description='OpenSky Network API Client ID',
                 required=False,
             ),
             CustomSetting(
-                name='opensky_password',
+                name='opensky_api_client_secret',
                 type=CustomSetting.TYPE_STRING,
-                description='OpenSky Network Password',
+                description='OpenSky Network Client Secret',
                 required=False,
             )
         )
